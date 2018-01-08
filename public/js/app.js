@@ -156,7 +156,7 @@ $(function() {
     $(".modalDialog").hide();
     // socket.leave("log");
     $("#log").html("");
-    socket.emit("kill");
+    socket.emit("kill", { id: CLICKED_ID });
     $(
       $(".modalDialog")
         .find("h2")

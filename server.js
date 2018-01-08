@@ -27,14 +27,17 @@ app.use(function(req, res, next) {
   // Pass to next layer of middleware
   next();
 });
+var tails = {};
 
 io.on("connection", function(socket) {
+  // tails[socket].id = socket.id;
   console.log("a user connected");
   socket.on("watch", function(data) {
     console.log(data);
     socket.emit("server", { msg: "HI Client!" });
   });
-  socket.on("kill", function() {
+  socket.on("kill", function(data) {
+    tails[data.id].tail.kill();
     socket.disconnect();
   });
   socket.on("disconnect", function() {
@@ -93,6 +96,7 @@ app.get("/container/:container", function(req, res) {
   var conId = req.params.container;
   var containersList = [];
   readStream(conId);
+
   var exec = require("child_process").exec;
   exec("docker logs " + conId + "", function(error, stdout, stderr) {
     var output = stdout.split("\n");
@@ -141,14 +145,15 @@ function readStream(id) {
   ) {
     var output = stdout.split("\n");
     var contId = output[0];
-    watchFile(contId);
+
+    watchFile(id, contId);
   });
 }
 
-function watchFile(path) {
+function watchFile(id, path) {
   var spawn = require("child_process").spawn;
   var tail = spawn("tail", ["-f", path]);
-
+  tails[id].tail = tail;
   tail.stdout.on("data", function(data) {
     //response.write('' + data);
     console.log(data.toString());
