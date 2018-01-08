@@ -1,0 +1,24 @@
+{
+  "name": "docker-web-ui",
+  "version": "1.0.0",
+  "description": "A web interface to list and show logs of containers from Docker, keeping a real time experience with Socket.IO and NodeJs.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ealves/docker-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ealves/docker-ui/issues"
+  },
+  "homepage": "https://github.com/ealves/docker-ui#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}

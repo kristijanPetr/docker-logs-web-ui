@@ -1,0 +1,45 @@
+<!doctype html>
+<html ng-app="DockerApp">
+
+<head>
+  <title>Docker</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <link rel="stylesheet" href="css/style.css" /></link>
+</head>
+
+<body ng-controller="ContainersController">
+  <div id="docker">
+    <h1>Docker - Containers</h1>
+    <p class="error">Listagem indisponível.</p>
+    <!-- <p ng-if="!containersList.length && $scope.disconnected">Atualizando lista...</p> -->
+    <div class="shadow">
+      <table class="table table-hover table-mc-light-blue">
+        <thead>
+          <tr>
+            <th>Project ID</th>
+            <th>Image</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div ng-show="modalIsOpen" id="modal" class="modalDialog">
+    <div>
+      <a href="#" title="Close" class="close" ng-click="closeLog()">X</a>
+      <h2>Log - {{ container.name }}</h2>
+      <div id="log"></div>
+      <a href="" class="full-log">Refresh</a>
+    </div>
+  </div>
+</body>
+
+</html>
