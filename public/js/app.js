@@ -222,7 +222,7 @@ function loadContainers() {
 }
 
 function socketHandler() {
-  var socket = io("http://127.0.0.1");
+  var socket = io("http://127.0.0.1:4000");
   socket.on("connect", function() {
     console.log("Connected!");
     socket.emit("watch", { msg: "hello" });
