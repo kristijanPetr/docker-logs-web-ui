@@ -44,7 +44,7 @@
 
 //   $scope.disconnected = false;
 
-//   var logDiv = angular.element( document.querySelector('#log') );
+//   var logDiv = angular.element( document.querySelector('#log-data') );
 
 //   $scope.getContainersList = function() {
 //     $http({
@@ -155,7 +155,8 @@ $(function() {
   $(".close").on("click", function() {
     $(".modalDialog").hide();
     // socket.leave("log");
-    $("#log").html("");
+    $("#log-data").html("");
+    socket.emit("kill");
     $(
       $(".modalDialog")
         .find("h2")
@@ -182,12 +183,12 @@ function appendTableData(id) {
     socket.on("log", function(data) {
       // var parsedData = JSON.parse(data.data);
       var log = data.data;
-
-      console.log("Received log", JSON.stringify(log));
+      console.log("Received log", log);
+      $("#log-data").append(log);
     });
-    // $('#log').append(data.join('\n'));
-    $("#log").html(data.join("\n"));
-    $("#log").animate({ scrollTop: 1e10 }, 2000);
+    // $('#log-data').append(data.join('\n'));
+    $("#log-data").html(data.join("\n"));
+    $("#log-data").animate({ scrollTop: 1e10 }, 2000);
   });
 }
 

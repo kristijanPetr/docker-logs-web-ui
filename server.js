@@ -34,6 +34,9 @@ io.on("connection", function(socket) {
     console.log(data);
     socket.emit("server", { msg: "HI Client!" });
   });
+  socket.on("kill", function() {
+    socket.disconnect();
+  });
   socket.on("disconnect", function() {
     console.log("user disconnected");
   });
