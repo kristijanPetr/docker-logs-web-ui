@@ -149,6 +149,6 @@ function watchFile(path) {
   tail.stdout.on("data", function(data) {
     //response.write('' + data);
     console.log(data.toString());
-    io.emit("log", { data: data.toString() });
+    io.emit("log", { data: data.toString().replace(/\n/g, "<br />") });
   });
 }

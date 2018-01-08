@@ -154,7 +154,7 @@ $(function() {
   });
   $(".close").on("click", function() {
     $(".modalDialog").hide();
-    socket.leave("log");
+    // socket.leave("log");
     $("#log").html("");
     $(
       $(".modalDialog")
@@ -178,7 +178,7 @@ function appendTableData(id) {
     status
   ) {
     console.log(data);
-    socket.join("log");
+    //socket.join("log");
     socket.on("log", function(data) {
       // var parsedData = JSON.parse(data.data);
       var log = data.data;
