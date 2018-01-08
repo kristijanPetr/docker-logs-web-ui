@@ -153,6 +153,7 @@ function readStream(id) {
 function watchFile(id, path) {
   var spawn = require("child_process").spawn;
   var tail = spawn("tail", ["-f", path]);
+  tails[id] = {};
   tails[id].tail = tail;
   tail.stdout.on("data", function(data) {
     //response.write('' + data);
