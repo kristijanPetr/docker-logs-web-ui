@@ -142,8 +142,10 @@ table {
   line-height: 17px;
   font-size: 14px;
   font-family: monospace;
-  white-space: pre;
+  /* white-space: pre; */
+  white-space: normal;
   padding: 5px;
+
   /*background-color: #000;
     color: lime;*/
 }

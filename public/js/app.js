@@ -44,7 +44,7 @@
 
 //   $scope.disconnected = false;
 
-//   var logDiv = angular.element( document.querySelector('#log-data') );
+//   var logDiv = angular.element( document.querySelector('#log') );
 
 //   $scope.getContainersList = function() {
 //     $http({
@@ -128,9 +128,9 @@
 //   $scope.getContainersList();
 // });
 var CLICKED_ID = "";
-var socket = io("http://62.69.69.165:4000/");
+var socket;
 $(function() {
-  socketHandler();
+  // socketHandler();
   loadContainers();
   console.log("On Start");
   setInterval(function() {
@@ -155,7 +155,7 @@ $(function() {
   $(".close").on("click", function() {
     $(".modalDialog").hide();
     // socket.leave("log");
-    $("#log-data").html("");
+    $("#log").html("");
     socket.emit("kill");
     $(
       $(".modalDialog")
@@ -179,16 +179,17 @@ function appendTableData(id) {
     status
   ) {
     console.log(data);
+    socket = socketHandler();
     //socket.join("log");
     socket.on("log", function(data) {
       // var parsedData = JSON.parse(data.data);
       var log = data.data;
-      console.log("Received log", log);
-      $("#log-data").append(log);
+      console.log("Received log", log.toString());
+      $("#log").append(log);
     });
-    // $('#log-data').append(data.join('\n'));
-    $("#log-data").html(data.join("\n"));
-    $("#log-data").animate({ scrollTop: 1e10 }, 2000);
+    // $('#log').append(data.join('\n'));
+    $("#log").html(data.join("\n"));
+    $("#log").animate({ scrollTop: 1e10 }, 2000);
   });
 }
 
@@ -221,6 +222,7 @@ function loadContainers() {
 }
 
 function socketHandler() {
+  var socket = io("http://62.69.69.165:4000/");
   socket.on("connect", function() {
     console.log("Connected!");
     socket.emit("watch", { msg: "hello" });
@@ -229,8 +231,11 @@ function socketHandler() {
     console.log("Received pong!!!", data);
   });
 
-  socket.on("disconnect", function() {});
+  socket.on("disconnect", function() {
+    console.log("disconected");
+  });
   socket.on("error", function() {
     console.log("error!");
   });
+  return socket;
 }
